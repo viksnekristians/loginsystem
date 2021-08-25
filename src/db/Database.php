@@ -12,7 +12,7 @@ class Database {
     $host="localhost:3306";
     $user="root";
     $password="";
-    $dbName="loginsystem";
+    $dbName="homework";
 
     $dsn = 'mysql:host='.$host. ';dbname='. $dbName;
     $pdo = new PDO($dsn, $user , $password);

@@ -19,21 +19,15 @@ $session = Session::getInstance();
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
-        <?php
-          if ($session->get('user_id')) {
-            echo '
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
-        </li>';}
-        ?>
-        <li class="nav-item">
-          <a class="nav-link" href="/news">News</a>
-        </li>
+        
       </ul>
       <span class="navbar-text">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="/secure">Secure section</a>
+            </li>
           <?php
           if (!$session->get('user_id')) {
             echo '<li class="nav-item">
@@ -54,6 +48,13 @@ $session = Session::getInstance();
   </div>
 </nav>
 
+<?php 
+    foreach ($session->get('errors') as $error ) {
+        echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+    }
+    $session->unset('errors');
+?>
+
 <?php
 
 use App\Router;
@@ -64,14 +65,12 @@ use App\Models\UserModel;
 $router = new Router();
 
 $router->get('/', IndexController::class.'::index');
-$router->get('/dashboard', IndexController::class.'::dashboard');
 $router->get('/login', AuthController::class.'::login');
 $router->post('/login', AuthController::class.'::login');
 $router->get('/register', AuthController::class.'::register');
-$router->post('/register', AuthController::class.'::register');
+$router->post('/register', AuthController::class.'::store');
 $router->post('/logout', AuthController::class.'::logout');
 $router->get('/logout', AuthController::class.'::logout');
-$router->get('/news', AuthController::class.'::news');
 
 $router->addNotFoundHandler(function() {
   echo "Not Found";

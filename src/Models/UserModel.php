@@ -43,6 +43,7 @@ class UserModel extends Database {
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute([$username]);
     $results = $stmt->fetchAll();
+    if (!$results) return false;
     if ($results[0]['password'] === $password) {
       return true;
     } else return false;
@@ -53,7 +54,9 @@ class UserModel extends Database {
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute([$username, $password]);
     $results = $stmt->fetchAll();
-    return $results[0]['id'];
+    if (empty($results)) return 0;
+    else return (int)$results[0]['id'];
+    
   }
 
 }
