@@ -16,7 +16,11 @@ class View {
 
   public function redirect($viewName, $data=null) {
     $session = Session::getInstance();
-    $session->set('errors', $data['errors']);
+    if (is_array($data)) {
+      if (array_key_exists('errors', $data)){
+        $session->set('errors', $data['errors']);
+      }
+    }
     $host = $_SERVER['HTTP_HOST'];
     header("Location: http://".$host.$viewName);
   }
@@ -26,12 +30,12 @@ class View {
     foreach($arr as $id=>$data){
         if($parent==$data['parent_id']){
             if($level>$prelevel){
-                $tree .= "<ol>";
+                echo "<ol>";
             }
             if($level==$prelevel){
-              $tree .= "</li>";
+                echo "</li>";
             }
-            $tree .= "<li>".$data['section_title'];
+            echo "<li>".$data['section_title'];
             if($level>$prelevel){
                 $prelevel=$level;
             }
@@ -41,9 +45,7 @@ class View {
         }
     }
     if($level==$prelevel){
-      $tree .= "</li></ol>";
+        echo "</li></ol>";
     }
-
-    return $tree;
 }
 }

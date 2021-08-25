@@ -74,7 +74,10 @@ $router->get('/logout', AuthController::class.'::logout');
 $router->get('/secure', IndexController::class.'::secure');
 $router->get('/sections', SectionsController::class.'::display');
 $router->post('/edit', SectionsController::class.'::edit');
+$router->post('/update', SectionsController::class.'::update');
 $router->post('/delete', SectionsController::class.'::delete');
+$router->post('/add', SectionsController::class.'::add');
+$router->post('/store', SectionsController::class.'::store');
 
 $router->addNotFoundHandler(function() {
   echo "Not Found";
