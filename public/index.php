@@ -21,13 +21,12 @@ $session = Session::getInstance();
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
-        
+        <li class="nav-item">
+              <a class="nav-link active" href="/sections">Sections</a>
+        </li>
       </ul>
       <span class="navbar-text">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="/secure">Secure section</a>
-            </li>
           <?php
           if (!$session->get('user_id')) {
             echo '<li class="nav-item">
@@ -60,6 +59,7 @@ $session = Session::getInstance();
 use App\Router;
 use App\Controllers\IndexController;
 use App\Controllers\AuthController;
+use App\Controllers\SectionsController;
 use App\Models\UserModel;
 
 $router = new Router();
@@ -71,6 +71,10 @@ $router->get('/register', AuthController::class.'::register');
 $router->post('/register', AuthController::class.'::store');
 $router->post('/logout', AuthController::class.'::logout');
 $router->get('/logout', AuthController::class.'::logout');
+$router->get('/secure', IndexController::class.'::secure');
+$router->get('/sections', SectionsController::class.'::display');
+$router->post('/edit', SectionsController::class.'::edit');
+$router->post('/delete', SectionsController::class.'::delete');
 
 $router->addNotFoundHandler(function() {
   echo "Not Found";

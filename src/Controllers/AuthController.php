@@ -20,7 +20,7 @@ class AuthController {
       $view->redirect('/', ['errors' => ['You are already logged in!']]);
     } else {
       if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        $view->render('/login.phtml');
+        $view->render('/login.php');
       } else {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -47,7 +47,7 @@ class AuthController {
     $session = Session::getInstance();
     $view = new View();
     if (!$session->get('user_id')) {
-      $view->render('/register.phtml');
+      $view->render('/register.php');
     } else {
       $view->redirect('/', );
     }
@@ -76,9 +76,9 @@ class AuthController {
         $password =  $userStructure->password;
   
         if ($userModel->saveUser($name, $lastName, $email, $username, $password)) {
-          $view->render('register.phtml', ['success' => true]); 
+          $view->render('register.php', ['success' => true]); 
         } else {
-          $view->render('register.phtml', ['success' => false]);
+          $view->render('register.php', ['success' => false]);
         }
 
     } else {
