@@ -64,11 +64,18 @@ class SectionsController
         $parentId = $_POST['parentId'];
         $model = new SectionModel();
         $view = new View();
-        if ($model->addSection($parentId, $title, $desc)) $view->redirect('/sections');
+        if ($model->addSection($parentId, $title, $desc)) {
+            $view->redirect('/sections');
+        } 
     }
 
     public function delete()
     {
-        //$id = $post;
+        $id = $_POST['delete'];
+        $model = new SectionModel();
+        $view = new View();
+        if ($model->deleteSection($id)) {
+            $view->redirect('/sections');
+        }
     }
 }
