@@ -1,6 +1,6 @@
 <div class="container-lg mt-3">
     <div>
-        <form  method='post' action='/add'><button class='btn btn-success' type='submit' name='add' value="0">Add</button></form>
+        <form  method='post' action='/add'><button class='btn btn-success' type='submit' name='add' value="0">Add section</button></form>
     </div>
     <?php
     buildTreeView($data, 0);
@@ -16,8 +16,8 @@
                 }
                 echo "<li><div><h4 class='me-3' style='display:inline; vertical-align:middle;'>".$data['section_title']."</h4><form style='display:inline;' method='post' action='/edit'><button class='btn btn-primary mr-3' type='submit' name='edit' value=".$id.">Edit</button></form>
                 <form style='display:inline;' method='post' action='/delete'><button class='btn btn-danger' type='submit' name='delete' value=".$id.">Delete</button></form>
-                <form style='display:inline;' method='post' action='/add'><button class='btn btn-success' type='submit' name='add' value=".$id.">Add</button></form></div>";
-                echo "<p>".$data['section_description']."</p>";
+                <form style='display:inline;' method='post' action='/add'><button class='btn btn-success' type='submit' name='add' value=".$id.">Add subsection</button></form></div>";
+                echo "<p>".$data['section_description']."</p><hr>";
                 if($level>$prelevel){
                     $prelevel=$level;
                 }
@@ -28,6 +28,7 @@
         }
         if($level==$prelevel){
             echo "</li></ul>";
+
         }
     }
     ?>

@@ -62,7 +62,7 @@ class AuthController {
       $lastName = $_POST['lastname'];
       $email = $_POST['email'];
       $username = $_POST['username'];
-      $password = $_POST['password'];
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $userStructure = new UserRegisterStructure($name, $lastName, $email, $username, $password);
 
       $errors = self::validateRegistration($userStructure);

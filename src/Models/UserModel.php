@@ -45,9 +45,7 @@ class UserModel extends Database {
     $stmt->execute([$username]);
     $results = $stmt->fetchAll();
     if (!$results) return false;
-    if ($results[0]['password'] === $password) {
-      return true;
-    } else return false;
+    return password_verify($password, $results[0]['password']);
   }
 
   public function getId($username, $password) {

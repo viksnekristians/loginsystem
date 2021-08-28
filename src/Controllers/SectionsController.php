@@ -43,8 +43,14 @@ class SectionsController
         $desc = $_POST['description'];
         $model = new SectionModel();
         $view = new View();
-        if ($model->editSection($id, $title, $desc)) {
-            $view->redirect('/sections');
+        if ($id && $title && $desc) {
+            if ($model->editSection($id, $title, $desc)) {
+                $view->redirect('/sections');
+            } else {
+                $view->redirect('/sections', ['errors' => ['Something went wrong!']] );
+            }
+        } else {
+            $view->redirect('/sections', ['errors' => ['You have to provide title and description!']] );
         }
     }
 
@@ -64,9 +70,15 @@ class SectionsController
         $parentId = $_POST['parentId'];
         $model = new SectionModel();
         $view = new View();
-        if ($model->addSection($parentId, $title, $desc)) {
-            $view->redirect('/sections');
-        } 
+        if ($title && $desc ) {
+            if ($model->addSection($parentId, $title, $desc)) {
+                $view->redirect('/sections');
+            } else {
+                $view->redirect('/sections', ['errors' => ['Something went wrong!']] );
+            }
+        } else {
+            $view->redirect('/sections', ['errors' => ['You have to provide title and description!']] );
+        }
     }
 
     public function delete()
